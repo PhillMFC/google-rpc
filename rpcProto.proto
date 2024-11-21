@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+service calculator{
+    rpc sum(operands) returns (result);
+    rpc div(operands) returns (result);
+    rpc mul(operands) returns (result);
+    rpc sub(operands) returns (result);
+}
+
+
+message operands{
+    double first_operand = 1;
+    double second_operand = 2;
+}
+
+message result{
+    double result = 1;
+}
