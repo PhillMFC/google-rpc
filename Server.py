@@ -6,13 +6,8 @@ import rpcProto_pb2 as pb2
 
 
 class UnaryService(pb2_grpc.calculatorServicer):
-
-    def __init__(self, *args, **kwargs):
-        pass
-
     def sum(self, request, context):
 
-        # get the string from the incoming request
         operands = [request.first_operand, request.second_operand]
         print('operadores: ', operands)
         result = eval(f'{operands[0]} + {operands[1]}')
@@ -22,7 +17,6 @@ class UnaryService(pb2_grpc.calculatorServicer):
     
     def sub(self, request, context):
 
-        # get the string from the incoming request
         operands = [request.first_operand, request.second_operand]
         print('operadores: ', operands)
         result = eval(f'{operands[0]} - {operands[1]}')
@@ -33,7 +27,6 @@ class UnaryService(pb2_grpc.calculatorServicer):
     
     def mul(self, request, context):
 
-        # get the string from the incoming request
         operands = [request.first_operand, request.second_operand]
         print('operadores: ', operands)
         result = eval(f'{operands[0]} * {operands[1]}')
@@ -43,7 +36,6 @@ class UnaryService(pb2_grpc.calculatorServicer):
     
     def div(self, request, context):
 
-        # get the string from the incoming request
         operands = [request.first_operand, request.second_operand]
         print('operadores: ', operands)
         result = eval(f'{operands[0]} / {operands[1]}')
@@ -51,15 +43,14 @@ class UnaryService(pb2_grpc.calculatorServicer):
         
         return pb2.result(result=result)
 
-
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
     pb2_grpc.add_calculatorServicer_to_server(UnaryService(), server)
-    server.add_insecure_port('localhost:50051')
+    server.add_insecure_port('[::]:50051')
     server.start()
     server.wait_for_termination()
 
 
 if __name__ == '__main__':
-    print("Servidor ovindo em: localhost:50051")
+    print("Servidor ouvindo em: ec2-18-223-212-98.us-east-2.compute.amazonaws.com:50051")
     serve()

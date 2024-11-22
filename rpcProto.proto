@@ -7,7 +7,6 @@ service calculator{
     rpc sub(operands) returns (result);
 }
 
-
 message operands{
     double first_operand = 1;
     double second_operand = 2;
